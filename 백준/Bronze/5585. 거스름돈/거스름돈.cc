@@ -12,7 +12,7 @@ int main()
 	int left = 1000 - money;
 	int cnt = 0;
 	for (int i = 0; i < 6; i++) {
-		cnt=cnt+left / v[i];
+		cnt += left / v[i];
 		left %= v[i];
 	}
 
