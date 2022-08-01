@@ -1,6 +1,7 @@
 #include<iostream>
-
 using namespace std;
+
+int arr[10];
 
 int main()
 {
@@ -9,16 +10,11 @@ int main()
 
 	int result;
 	result = a * b * c;
-
-	int x[10] = { 0 };
-	while (result!= 0) { 
-		x[result% 10] += 1;
-		result/= 10; 
+	
+	while (result > 0) {
+		arr[result % 10]++;
+		result /= 10;
 	}
 
-
-	for (int i = 0; i < 10; i++) {
-		cout << x[i] << endl;
-	}
-	return 0;
+	for (int i = 0; i < 10; i++) cout << arr[i] << '\n';
 }
