@@ -1,65 +1,47 @@
 #include<iostream>
-#include<string>
-#include<stack>
+#include<list>
 using namespace std;
 
 int main()
 {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+
 	string s;
-	stack<char> stk1;
-	stack<char> stk2;
 	cin >> s;
 
-	for (int i = 0; i < s.size(); i++) {
-		stk1.push(s[i]);
-	}
+    list<char> L;
+    for (auto c : s) //for(int i=0;i<s.length();i++){ L.push_back(s[i]) }
+        L.push_back(c);
 
-	int tc;
-	cin >> tc;
+    auto cursor = L.end();
 
-	for (int i = 0; i < tc; i++) {
-		char cmd;
-		cin >> cmd;
+    int q;  //개수
+    cin >> q;
+    while (q--) {
+        char op;
+        cin >> op;
 
-		if (cmd == 'P') {
-			char c;
-			cin >> c;
+        if (op == 'P') {
+            char add;
+            cin >> add;
+            L.insert(cursor, add); //cusrer 왼쪽에 add 추가
+        }
+        else if (op == 'L') {
+            if (cursor != L.begin()) 
+                cursor--;
+        }
+        else if (op == 'D') {
+            if (cursor != L.end()) 
+                cursor++;
+        }
+        else { // 'B'
+            if (cursor != L.begin()) {
+                cursor--;
+                cursor = L.erase(cursor);
+            }
+        }
+    }
 
-			stk1.push(c);
-		}
-		else if (cmd == 'L') {
-			if (stk1.empty())
-				continue;
-			else {
-				stk2.push(stk1.top());
-				stk1.pop();
-			}
-		}
-		else if (cmd == 'D') {
-			if (stk2.empty())
-				continue;
-			else {
-				stk1.push(stk2.top());
-				stk2.pop();
-			}
-		}
-		else if (cmd == 'B') {
-			if (stk1.empty())
-				continue;
-			else
-				stk1.pop();
-		}
-	}
-	//stk1에 있던 모든 원소를 stk2로 옮긴다.
-	//그후 stk2를 pop하며 top을 출력해준다.
-
-	while (!stk1.empty()) {
-		stk2.push(stk1.top());
-		stk1.pop();
-	}
-	while (!stk2.empty()) {
-		cout << stk2.top();
-		stk2.pop();
-	}
-	return 0;
+    for (auto c : L) cout << c;
 }
